@@ -56,7 +56,7 @@ namespace MoonShooter.Controllers
                         model.Speed += bulletModelData.BaseSpeed * 0.1f;
                         model.Damage += model.Damage * 0.2f;
 
-                        Translator.Send(BaseProtocol.PowerUpMessage, new StringArray { value = new string[2] { model.Speed.ToString(), model.Damage.ToString() } });
+                        Translator.Send(BaseProtocol.PowerUpMessage, new StringArray { value = new string[2] { model.Speed.ToString("F2"), model.Damage.ToString("F2") } });
                     }
                     break;
             }

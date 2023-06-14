@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SceneModelData
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 4981986375847967591, guid: e5eba5763abf5944ba123c7b4b32e609, type: 3}
-  sizeSpawnZone: 8
+  sizeSpawnZone: 6
   minCrystalsInScene: 6
   maxCrystalsInScene: 10
