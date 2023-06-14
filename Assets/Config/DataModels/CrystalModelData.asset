@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f97e1df0a96786489e30529d752a52b, type: 3}
   m_Name: CrystalModelData
   m_EditorClassIdentifier: 
+  shardPrefab: {fileID: 7961741081930224001, guid: c4b317202e151c04899d7073389077a1, type: 3}
+  countShard: 8
   minCountDropShard: 1
   maxCountDropShard: 5

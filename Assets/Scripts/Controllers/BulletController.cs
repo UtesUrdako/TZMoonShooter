@@ -12,6 +12,8 @@ namespace MoonShooter.Controllers
             bulletModel = new BulletModel();
             bulletModel.speed = speed;
             bulletModel.damage = damage;
+
+            Destroy(gameObject, 5f);
         }
 
         private void Update()

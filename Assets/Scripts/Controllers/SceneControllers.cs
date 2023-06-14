@@ -1,3 +1,4 @@
+using InnerProtocol;
 using MoonShooter.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,6 +34,7 @@ namespace MoonShooter.Controllers
 
         private void ReloadScene()
         {
+            Translator.RemoveAll();
             SceneManager.LoadScene(0);
         }
     }

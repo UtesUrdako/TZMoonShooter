@@ -1,7 +1,7 @@
 ﻿namespace InnerProtocol
 {
-    public struct FloatData : ISendData
+    public struct StringArray : ISendData
     {
-        public float value;
+        public string[] value;
     }
 }

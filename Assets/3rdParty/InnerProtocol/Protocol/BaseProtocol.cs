@@ -2,7 +2,8 @@ namespace InnerProtocol
 {
     public enum BaseProtocol
     {
-        CommandOne,
-        CommandTwo
+        PowerUp,
+        PowerUpMessage,
+        Shoot
     }
 }

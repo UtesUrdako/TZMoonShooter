@@ -1,3 +1,4 @@
+using InnerProtocol;
 using MoonShooter.Models;
 using UnityEngine;
 
@@ -10,11 +11,15 @@ namespace MoonShooter.Controllers
         [SerializeField] private WeaponModelData weaponModelData;
         [SerializeField] private BulletModelData bulletModelData;
 
+        private CustomSignal onPowerUp;
+
         private WeaponModel model;
 
         private void Awake()
         {
             model = new WeaponModel(playerController, weaponModelData, bulletModelData);
+            onPowerUp = PowerUp;
+            Translator.Add<BaseProtocol>(onPowerUp);
         }
 
         public void Shoot()
@@ -38,13 +43,23 @@ namespace MoonShooter.Controllers
         {
             var bullet = Instantiate(weaponModelData.BulletPrefab, weapon.ShootPoint.position, weapon.ShootPoint.rotation);
             bullet.Initialize(model.Speed, model.Damage);
+            Translator.Send(BaseProtocol.Shoot);
         }
 
-        public void PowerUp()
+        public void PowerUp(System.Enum code)
         {
-            model.PowerBonus += 1;
-            model.Speed += bulletModelData.BaseSpeed * 0.1f;
-            model.Damage += model.Damage * 0.2f;
+            switch (code)
+            {
+                case BaseProtocol.PowerUp:
+                    {
+                        model.PowerBonus += 1;
+                        model.Speed += bulletModelData.BaseSpeed * 0.1f;
+                        model.Damage += model.Damage * 0.2f;
+
+                        Translator.Send(BaseProtocol.PowerUpMessage, new StringArray { value = new string[2] { model.Speed.ToString(), model.Damage.ToString() } });
+                    }
+                    break;
+            }
         }
     }
 }

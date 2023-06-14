@@ -10,6 +10,9 @@ namespace MoonShooter.Controllers
 
         private RigidbodyFirstPersonController firstPersonController;
         private PlayerRBModel playerRBModel;
+        private float startHeight;
+        private float maxHeight = 1.7f;
+        private float forceHeight;
 
         private void Awake()
         {
@@ -17,21 +20,38 @@ namespace MoonShooter.Controllers
             playerRBModel = new PlayerRBModel(GetComponent<Rigidbody>(), GetComponentInChildren<WeaponController>());
         }
 
+        private void Start()
+        {
+            startHeight = transform.position.y;
+        }
+
         private void Update()
         {
             if (Input.GetKey(KeyCode.Space))
                 ForseLanding();
 
+            if (Input.GetKeyDown(KeyCode.Space))
+                forceHeight = transform.position.y;
+
             if (Input.GetMouseButton(0))
                 Shoot();
+
+            if (transform.position.y > maxHeight)
+                maxHeight = transform.position.y;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.collider.CompareTag("Crystal"))
+            if (other.CompareTag("Crystal") && Input.GetKey(KeyCode.Space))
             {
-                //var power = collision.contacts[0].point.magnitude;
-                //Debug.Log($"Power landing {power}");
+                var target = other.GetComponent<IDamageable>();
+                float delta = forceHeight - startHeight;
+                float maxDelta = maxHeight = startHeight;
+                target.Damage(delta / maxDelta);
+            }
+            else if (other.CompareTag("Shard"))
+            {
+                other.GetComponent<ShardController>().DestroyShard();
             }
         }
 
@@ -48,17 +68,6 @@ namespace MoonShooter.Controllers
         public void Recoil(Vector3 direction)
         {
             firstPersonController.Jump(direction);
-            return;
-
-            //var position = transform.position;
-            //position.y += 0.4f;
-            //transform.position = position;
-
-            var velocity = playerRBModel.PlayerRigidbody.velocity;
-            velocity.x += direction.x / 6f;
-            velocity.y = direction.y;
-            velocity.z += direction.z / 6f;
-            playerRBModel.PlayerRigidbody.velocity = velocity;
         }
     }
 }
