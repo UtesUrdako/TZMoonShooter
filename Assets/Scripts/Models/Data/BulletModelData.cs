@@ -7,5 +7,8 @@ namespace MoonShooter.Models
     {
         [SerializeField] private float baseSpeed;
         [SerializeField] private float baseDamage;
+
+        public float BaseSpeed => baseSpeed;
+        public float BaseDamage => baseDamage;
     }
 }

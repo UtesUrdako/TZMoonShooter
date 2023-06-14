@@ -4,8 +4,20 @@ namespace MoonShooter.Models
     {
         private TargetBallModelData targetBallModelData;
 
-        public int currentHitPoint;
+        public float currentHitPoint;
 
         public int MaxHitPoint => targetBallModelData.MaxHitPoint;
+        public bool IsDestroy => currentHitPoint <= 0;
+
+        public TargetBallModel(TargetBallModelData targetBallModelData)
+        {
+            this.targetBallModelData = targetBallModelData;
+            currentHitPoint = MaxHitPoint;
+        }
+
+        public void SubstractHitPoint(float value)
+        {
+            currentHitPoint -= value;
+        }
     }
 }
